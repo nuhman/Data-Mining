@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> MNS - Trivia Answering Site </title>
+  <!--This is for demonstration purposes only. So UI looks dull :( -->
+  <style>
+	body{
+	  background : #20da84;
+	  color:white;
+	  font-family: verdana;
+	}
+	
+	#title{
+		animation: title 8000ms ease-out infinite alternate;
+	}
+	@keyframes title{
+	0% {
+		background:#20b5da;
+    }
+	25% {
+		background:#20da84;
+	}
+	50%{
+		background:#de9339;
+	}
+    100% {
+		background:#a39db9;
+    }	
+	}
+	
+	.well{
+		width: 50%;
+		margin: 0 auto;
+		font-size:4em;
+		text-align:center;
+	}
+	input{
+		width:20em;
+		padding:4%;
+		font-size: 18px;
+	}
+	button{		
+		padding: 4%;
+		font-size: 18px;
+		border:none;
+		background: #3c3b40;
+		color:white;		
+		transition: all linear 0.2s;
+	}
+	button:hover{
+		background: black;
+		transition: all linear 0.2s;
+		cursor: pointer;
+	}
+	
+  </style>
+</head>
+<body>
+	<div class="well">
+		<h3>-- SIGN IN --</h3>
+    <p>This is just for demonstration purpose. Please see the data_dict.py for all the data on various music profiles.</p>
+    <p>Enter any of the following name: Angelica,Bill,Chan,Dan,Hailey,Jordyn,Sam,Veronica.</p>
+		<form method="post">
+		<input type="text" name="username" >
+		<button type="submit" name="submit"> Go </button>
+		</form>
+	</div>
+</body>
+</html>
