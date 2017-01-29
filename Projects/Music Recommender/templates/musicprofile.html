@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Music Recommender </title>
+</head>
+<body>
+	<h3>My Bands: </h3>
+	{% for i in myband %}
+	<p>{{ i }}</p>
+	{% endfor %}
+	<h3>Recommended for you:</h3>
+	{% for (i,j) in recmusic %}
+	<p>{{ i }}</p>
+	{% endfor %}
+</body>
+</html>
