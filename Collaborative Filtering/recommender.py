@@ -53,72 +53,36 @@ class recommender:
         for rating in ratings:
             print("%s\t%i" % (rating[0], rating[1]))
         
-
-        
-
-    def loadBookDB(self, path=''):
-        """loads the BX book dataset. Path is where the BX files are
-        located"""
+    
+    def loadMovieDB(self, path=''):
+        """loads the Movie ratings dataset. Path is where the Movie files are located.
+        """
         self.data = {}
+        users = []
+        f = codecs.open(path + "Movie_Ratings.csv")
         i = 0
-        #
-        # First load book ratings into self.data
-        #
-        f = codecs.open(path + "BX-Book-Ratings.csv", 'r', 'utf8')
+        for line in f:                        
+            # users list
+            users = line.split(",")
+            users = [user.strip('\"') for user in users if user != '']
+            users[-1] = users[-1].rstrip()
+            users[-1] = users[-1].rstrip('\"')
+            print(users)                        
+            for user in users:
+                self.data[user] = {}
+            break
+        
         for line in f:
-            i += 1
-            #separate line into fields
-            fields = line.split(';')
-            user = fields[0].strip('"')
-            book = fields[1].strip('"')
-            rating = int(fields[2].strip().strip('"'))
-            if user in self.data:
-                currentRatings = self.data[user]
-            else:
-                currentRatings = {}
-            currentRatings[book] = rating
-            self.data[user] = currentRatings
-        f.close()
-        #
-        # Now load books into self.productid2name
-        # Books contains isbn, title, and author among other fields
-        #
-        f = codecs.open(path + "BX-Books.csv", 'r', 'utf8')
-        for line in f:
-            i += 1
-            #separate line into fields
-            fields = line.split(';')
-            isbn = fields[0].strip('"')
-            title = fields[1].strip('"')
-            author = fields[2].strip().strip('"')
-            title = title + ' by ' + author
-            self.productid2name[isbn] = title
-        f.close()
-        #
-        #  Now load user info into both self.userid2name and
-        #  self.username2id
-        #
-        f = codecs.open(path + "BX-Users.csv", 'r', 'utf8')
-        for line in f:
-            i += 1
-            #print(line)
-            #separate line into fields
-            fields = line.split(';')
-            userid = fields[0].strip('"')
-            location = fields[1].strip('"')
-            if len(fields) > 3:
-                age = fields[2].strip().strip('"')
-            else:
-                age = 'NULL'
-            if age != 'NULL':
-                value = location + '  (age: ' + age + ')'
-            else:
-                value = location
-            self.userid2name[userid] = value
-            self.username2id[location] = userid
-        f.close()
-        print(i)
-                
+            movie_ratings = line.split(",")            
+            movie = movie_ratings[0]
+            movie = movie.strip('\"')
+            movie = movie.strip()            
+            for j in range(len(movie_ratings[1:])):
+                movie_ratings[j] = movie_ratings[j].strip()               
+                if movie_ratings[j] != '' and j > 0:   
+                    self.data[users[j-1]][movie] = int(movie_ratings[j]) #start from users[0]                            
+        print(self.data)
+         
         
     def pearson(self, rating1, rating2):
         sum_xy = 0
