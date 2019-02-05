@@ -7,7 +7,7 @@ from moviedata import users
 
 class recommender:
 
-    def __init__(self, data, k=1, metric='cosine', n=5):
+    def __init__(self, data=None, k=1, metric='cosine', n=5):
         """ initialize recommender
         currently, if data is dictionary the recommender is initialized
         to it.
